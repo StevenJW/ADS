@@ -36,13 +36,23 @@ class SolutionHashTable {
         if (key == null) return false;
         int i = hash(key);
         int end = i; // Don't allow loops
+        Entry e = new Entry(key, value);
+        int probeIndex = -1;
         do {
-            if (table[i] == null || table[i].getKey() == null || key.equals(table[i].getKey())) {
-                table[i] = new Entry(key, value);
+            if (table[i] != null && key.equals(table[i].getKey())) {
+                table[i] = e;
                 return true;
+            } else if (table[i] == null || table[i].getKey() == null || key.equals(table[i].getKey())) {
+                if (probeIndex == -1) probeIndex = i;
+                if (table[i] == null) break;
             }
             i = (i + 1) % capacity;
         } while (i != end);
+
+        if (probeIndex != -1) {
+            table[probeIndex] = e;
+            return true;
+        }
         return false;
     }
 
