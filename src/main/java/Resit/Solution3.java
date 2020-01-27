@@ -19,7 +19,7 @@ public class Solution3 {
             if (n == null || n.getElement() > node.getElement()) {
                 sorted.addFirst(node.getElement());
             } else {
-                while (n != null && n.getElement() < node.getElement() && n.getNext() != null && n.getNext().getElement() < node.getElement()) {
+                while (n != null && n.getNext() != null && n.getNext().getElement() < node.getElement()) {
                     n = n.getNext();
                 }
                 sorted.addAfter(n, node.getElement());
